@@ -1,0 +1,19 @@
+.CharacterCardContainer {
+  display: block;
+  padding: 10px;
+  background-color: green;
+  border-radius: 15px;
+}
+
+.CharacterCardImage {
+  width: 200px;
+  height: 200px;
+  background-color: yellowgreen;
+  border-radius: 10px;
+}
+
+.CharacterCardName {
+  max-width: 200px;
+  color: white;
+  font-weight: bold;
+}
