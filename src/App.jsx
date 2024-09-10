@@ -1,10 +1,10 @@
 import "./App.css";
-import CharacterCard from "./Components/CharacterCard/CharacterCard";
+import AppScreen from "./Components/AppScreen/AppScreen";
 
 function App() {
   return (
     <>
-      <CharacterCard />
+      <AppScreen />
     </>
   );
 }

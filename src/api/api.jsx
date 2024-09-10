@@ -1,10 +1,15 @@
-import { useEffect, useRef, useState } from "react";
-
-const fetchData = (url, setData, signal = null) => {
+const fetchData = (
+  url,
+  setData,
+  signal = null,
+  options = { logging: false },
+) => {
   fetch(url, { signal: signal ? signal : null })
     .then((response) => response.json())
     .then((data) => {
-      //console.log("fetching data");
+      if (options.logging) {
+        console.log("fetching data");
+      }
       setData(data);
     })
     .catch((error) => {
