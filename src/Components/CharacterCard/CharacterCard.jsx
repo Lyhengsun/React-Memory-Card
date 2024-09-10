@@ -1,26 +1,33 @@
 export default CharacterCard;
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./CharacterCard.module.css";
 import { useEffect } from "react";
 import { capitalize } from "../../Utils";
+import { fetchData } from "../../api/api";
 
 function CharacterCard() {
   const apiUrl = "https://pokeapi.co/api/v2/pokemon/1/";
   const [pokemonObject, setPokemonObject] = useState(null);
+  //const { data, error, loading } = useFetch(apiUrl);
   const imgUrl = pokemonObject?.sprites.front_default ?? "";
   const characterName = pokemonObject?.name ?? "Guest";
+  const ignore = useRef(false);
 
   useEffect(() => {
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        setPokemonObject(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    if (!ignore.current) {
+      fetchData(apiUrl, setPokemonObject);
+    }
+    return () => {
+      ignore.current = true;
+    };
   }, []);
+
+  //if (error) {
+  //  console.log(error);
+  //}
+
+  console.log("rendering");
 
   return (
     <div className={styles.CharacterCardContainer}>
