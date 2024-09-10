@@ -1,13 +1,10 @@
-const fetchData = (
-  url,
-  setData,
-  signal = null,
-  options = { logging: false },
-) => {
+import CharacterModel from "../Models/CharacterModel";
+
+const fetchData = (url, setData, { signal = null, logging = false } = {}) => {
   fetch(url, { signal: signal ? signal : null })
     .then((response) => response.json())
     .then((data) => {
-      if (options.logging) {
+      if (logging) {
         console.log("fetching data");
       }
       setData(data);
@@ -18,5 +15,9 @@ const fetchData = (
       return null;
     });
 };
+
+export function convertToCharacterModel(jsonData) {
+  return new CharacterModel();
+}
 
 export { fetchData };

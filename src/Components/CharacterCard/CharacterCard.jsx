@@ -9,7 +9,6 @@ import { fetchData } from "../../api/api";
 function CharacterCard() {
   const apiUrl = "https://pokeapi.co/api/v2/pokemon/1/";
   const [pokemonObject, setPokemonObject] = useState(null);
-  //const { data, error, loading } = useFetch(apiUrl);
   const imgUrl = pokemonObject?.sprites.front_default ?? "";
   const characterName = pokemonObject?.name ?? "Guest";
   const ignore = useRef(false);
