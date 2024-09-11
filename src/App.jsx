@@ -1,27 +1,28 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import AppScreen from "./Components/AppScreen/AppScreen";
-import { fetchData } from "./api/api";
+import { fetchData, fetchPokemonByGeneration } from "./api/api";
 import { PokemonDataProvider } from "./Contexts/PokemonDataContext";
 
 function App() {
-  const apiUrl = "https://pokeapi.co/api/v2/generation/1/";
   const [data, setData] = useState(null);
   const ignoreFetch = useRef(false);
 
   useEffect(() => {
     if (!ignoreFetch.current) {
-      fetchData(apiUrl, setData);
+      fetchPokemonByGeneration(setData, { logging: true, generationId: 2 });
     }
 
     return () => {
       ignoreFetch.current = true;
     };
   }, []);
+
+  //console.log(data);
   return (
     <>
       {data && (
-        <PokemonDataProvider initialData={data.pokemon_species}>
+        <PokemonDataProvider initialData={data}>
           <AppScreen />
         </PokemonDataProvider>
       )}

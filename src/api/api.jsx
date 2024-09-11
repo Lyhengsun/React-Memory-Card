@@ -1,7 +1,11 @@
 import CharacterModel from "../Models/CharacterModel";
 
-const fetchData = (url, setData, { signal = null, logging = false } = {}) => {
-  fetch(url, { signal: signal ? signal : null })
+const fetchData = async (
+  url,
+  setData,
+  { signal = null, logging = false } = {},
+) => {
+  await fetch(url, { signal: signal })
     .then((response) => response.json())
     .then((data) => {
       if (logging) {
@@ -13,6 +17,47 @@ const fetchData = (url, setData, { signal = null, logging = false } = {}) => {
       console.log("fetchData error");
       console.error(error);
       return null;
+    });
+};
+
+const generationPokemonAmount = {
+  1: 151,
+  2: 100,
+  3: 135,
+  4: 107,
+  5: 156,
+  6: 72,
+  7: 88,
+  8: 96,
+  9: 120,
+};
+
+//export const fetchPokemonById = (setData, url)
+
+export const fetchPokemonByGeneration = (
+  setData,
+  { signal = null, logging = false, generationId = 1 } = {},
+) => {
+  let offset = 0;
+  let limit = 151;
+  if (generationId > 1) {
+    Object.keys(generationPokemonAmount).forEach(function (key) {
+      if (key < generationId) {
+        offset = offset + generationPokemonAmount[key];
+      }
+    });
+    limit = generationPokemonAmount[generationId];
+  }
+
+  const url = `https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${limit}`;
+  fetch(url, { signal: signal })
+    .then((response) => response.json())
+    .then((data) => {
+      if (logging) {
+        console.log("fetching pokemon data by generation");
+        console.log("url: " + url);
+      }
+      setData(data);
     });
 };
 
