@@ -4,7 +4,7 @@ import PropTypes, { object } from "prop-types";
 export const PokemonDataContext = createContext(null);
 export const PokemonDataDispatchContext = createContext(null);
 
-export function PokemonDataProvider({ children, initialData = {} }) {
+export function PokemonDataProvider({ children , initialData = [] }) {
   const [pokemonData, dispatch] = useReducer(pokemonDataReducer, initialData);
   return (
     <PokemonDataContext.Provider value={pokemonData}>
@@ -16,7 +16,7 @@ export function PokemonDataProvider({ children, initialData = {} }) {
 }
 PokemonDataProvider.propTypes = {
   children: PropTypes.node.isRequired,
-  initialData: PropTypes.object.isRequired,
+  initialData: PropTypes.array.isRequired,
 };
 
 function pokemonDataReducer(pokemonData, action) {

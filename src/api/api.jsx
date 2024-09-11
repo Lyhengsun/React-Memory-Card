@@ -60,7 +60,8 @@ export const fetchPokemonByGeneration = (
         console.log("fetching pokemon data by generation");
         console.log("url: " + url);
       }
-      setData(data);
+
+      setData(data.results);
     });
 };
 
