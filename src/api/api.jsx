@@ -49,7 +49,10 @@ export const fetchPokemonByGeneration = (
     limit = generationPokemonAmount[generationId];
   }
 
-  const url = `https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${limit}`;
+  const url = new URL(`https://pokeapi.co/api/v2/pokemon/`);
+  const params = new URLSearchParams({ offset: offset, limit: limit });
+  params.forEach((value, key) => url.searchParams.set(key, value));
+
   fetch(url, { signal: signal })
     .then((response) => response.json())
     .then((data) => {
