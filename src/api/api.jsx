@@ -1,17 +1,25 @@
 import CharacterModel from "../Models/CharacterModel";
 
-const fetchData = async (
+const fetchData = (
   url,
   setData,
-  { signal = null, logging = false } = {},
+  {
+    signal = null,
+    logging = false,
+    setCondition = true,
+    extraDataFunction = () => {},
+  } = {},
 ) => {
-  await fetch(url, { signal: signal })
+  fetch(url, { signal: signal })
     .then((response) => response.json())
     .then((data) => {
       if (logging) {
         console.log("fetching data");
       }
-      setData(data);
+      extraDataFunction(data);
+      if (setCondition) {
+        setData(data);
+      }
     })
     .catch((error) => {
       console.log("fetchData error");
@@ -34,9 +42,14 @@ const generationPokemonAmount = {
 
 //export const fetchPokemonById = (setData, url)
 
-export const fetchPokemonByGeneration = async (
+export const fetchPokemonByGeneration = (
   setData,
-  { signal = null, logging = false, generationId = 1 } = {},
+  {
+    signal = null,
+    logging = false,
+    generationId = 1,
+    setError = () => {},
+  } = {},
 ) => {
   let offset = 0;
   let limit = 151;
@@ -53,30 +66,40 @@ export const fetchPokemonByGeneration = async (
   const params = new URLSearchParams({ offset: offset, limit: limit });
   params.forEach((value, key) => url.searchParams.set(key, value));
 
+  const finalData = [];
+
   fetch(url, { signal: signal })
     .then((response) => response.json())
-    .then(async (data) => {
+    .then((data) => {
       if (logging) {
         console.log("fetching pokemon data by generation");
         console.log("url: " + url);
       }
-      const convertedData = [];
-      await data.results.forEach((result) => {
+      let dataProgress = 0;
+      data.results.forEach((result) => {
         const pokemonUrl = new URL(result.url);
         fetch(pokemonUrl)
           .then((response) => response.json())
           .then((pokemonData) => {
             //console.log(pokemonData);
-            convertedData.push(
+            finalData.push(
               new CharacterModel(
                 pokemonData.id,
+                pokemonData.name,
                 pokemonData.sprites.front_default,
               ),
             );
+            dataProgress++;
+            if (dataProgress >= limit) {
+              setData(finalData.sort((a, b) => a.id - b.id));
+            }
           });
       });
-
-      setData(convertedData);
+    })
+    .catch((error) => {
+      console.log("fetch pokemon by generation error");
+      setError(error.toString());
+      setData(finalData);
     });
 };
 

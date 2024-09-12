@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import AppScreen from "./Components/AppScreen/AppScreen";
-import { fetchData, fetchPokemonByGeneration } from "./api/api";
+import { fetchPokemonByGeneration } from "./api/api";
 import { PokemonDataProvider } from "./Contexts/PokemonDataContext";
 
 function App() {
@@ -21,10 +21,12 @@ function App() {
   //console.log(data);
   return (
     <>
-      {data && (
+      {data ? (
         <PokemonDataProvider initialData={data}>
           <AppScreen />
         </PokemonDataProvider>
+      ) : (
+        <div>Loading...</div>
       )}
     </>
   );
