@@ -34,7 +34,7 @@ const generationPokemonAmount = {
 
 //export const fetchPokemonById = (setData, url)
 
-export const fetchPokemonByGeneration = (
+export const fetchPokemonByGeneration = async (
   setData,
   { signal = null, logging = false, generationId = 1 } = {},
 ) => {
@@ -55,13 +55,28 @@ export const fetchPokemonByGeneration = (
 
   fetch(url, { signal: signal })
     .then((response) => response.json())
-    .then((data) => {
+    .then(async (data) => {
       if (logging) {
         console.log("fetching pokemon data by generation");
         console.log("url: " + url);
       }
+      const convertedData = [];
+      await data.results.forEach((result) => {
+        const pokemonUrl = new URL(result.url);
+        fetch(pokemonUrl)
+          .then((response) => response.json())
+          .then((pokemonData) => {
+            //console.log(pokemonData);
+            convertedData.push(
+              new CharacterModel(
+                pokemonData.id,
+                pokemonData.sprites.front_default,
+              ),
+            );
+          });
+      });
 
-      setData(data.results);
+      setData(convertedData);
     });
 };
 

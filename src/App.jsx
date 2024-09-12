@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     if (!ignoreFetch.current) {
-      fetchPokemonByGeneration(setData, { logging: true, generationId: 2 });
+      fetchPokemonByGeneration(setData, { logging: true });
     }
 
     return () => {
