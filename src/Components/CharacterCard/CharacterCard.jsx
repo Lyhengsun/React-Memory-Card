@@ -1,19 +1,30 @@
 export default CharacterCard;
 
-import { useRef, useState } from "react";
 import styles from "./CharacterCard.module.css";
 import { capitalize } from "../../Utils";
 import PropTypes from "prop-types";
 import CharacterModel from "../../Models/CharacterModel";
+import { usePokemonDataDispatch } from "../../Contexts/ContextHook";
 
-function CharacterCard({ pokemonData }) {
+function CharacterCard({ pokemonData, setSelectedIds = () => {} }) {
   const name = pokemonData.name;
   const imgUrl = pokemonData.spriteUrl;
+  const pokemonDataDispatch = usePokemonDataDispatch();
 
   //console.log("rendering");
 
+  function handleOnClick() {
+    pokemonDataDispatch({
+      type: "edited_pokemon_data",
+      pokemonId: pokemonData.id,
+      pokemonSelected: true,
+    });
+    setSelectedIds((a) => [...a, pokemonData.id]);
+    console.log(name);
+  }
+
   return (
-    <div className={styles.CharacterCardContainer}>
+    <div className={styles.CharacterCardContainer} onClick={handleOnClick}>
       <div className={styles.CharacterCardImage}>
         <img
           src={imgUrl}
@@ -27,4 +38,5 @@ function CharacterCard({ pokemonData }) {
 }
 CharacterCard.propTypes = {
   pokemonData: PropTypes.instanceOf(CharacterModel).isRequired,
+  setSelectedIds: PropTypes.instanceOf(Function),
 };
