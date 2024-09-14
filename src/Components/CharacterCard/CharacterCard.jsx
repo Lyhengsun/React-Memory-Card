@@ -6,12 +6,10 @@ import PropTypes from "prop-types";
 import CharacterModel from "../../Models/CharacterModel";
 import { usePokemonDataDispatch } from "../../Contexts/ContextHook";
 
-function CharacterCard({ pokemonData, setSelectedIds = () => {} }) {
+function CharacterCard({ pokemonData, style = {}, setScore = () => {} }) {
   const name = pokemonData.name;
   const imgUrl = pokemonData.spriteUrl;
   const pokemonDataDispatch = usePokemonDataDispatch();
-
-  //console.log("rendering");
 
   function handleOnClick() {
     if (!pokemonData.selected) {
@@ -20,13 +18,23 @@ function CharacterCard({ pokemonData, setSelectedIds = () => {} }) {
         pokemonId: pokemonData.id,
         pokemonSelected: true,
       });
-      setSelectedIds((a) => [...a, pokemonData.id]);
+      setScore((n) => n + 1);
+    } else {
+      console.log("Wrong!");
+      pokemonDataDispatch({
+        type: "reseted_pokemon_data_selection",
+      });
+      setScore(0);
     }
-    console.log(name);
+    //console.log(name);
   }
 
   return (
-    <div className={styles.CharacterCardContainer} onClick={handleOnClick}>
+    <div
+      className={styles.CharacterCardContainer}
+      onClick={handleOnClick}
+      style={style}
+    >
       <div className={styles.CharacterCardImage}>
         <img
           src={imgUrl}
@@ -40,5 +48,6 @@ function CharacterCard({ pokemonData, setSelectedIds = () => {} }) {
 }
 CharacterCard.propTypes = {
   pokemonData: PropTypes.instanceOf(CharacterModel).isRequired,
-  setSelectedIds: PropTypes.instanceOf(Function),
+  style: PropTypes.object,
+  setScore: PropTypes.func,
 };

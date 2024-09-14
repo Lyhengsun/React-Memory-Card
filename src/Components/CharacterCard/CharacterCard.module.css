@@ -1,19 +1,23 @@
 .CharacterCardContainer {
-  display: block;
-  padding: 10px;
+  display: flex;
+  padding: 1vw;
   background-color: green;
   border-radius: 15px;
+  flex-direction: column;
+  align-items: center;
 }
 
 .CharacterCardImage {
-  width: 200px;
-  height: 200px;
+  width: 27vw;
+  aspect-ratio: 1;
   background-color: yellowgreen;
   border-radius: 10px;
 }
 
 .CharacterCardName {
-  max-width: 200px;
+  max-width: 100%;
   color: white;
   font-weight: bold;
+  font-size: 4vw;
+  text-align: center;
 }
