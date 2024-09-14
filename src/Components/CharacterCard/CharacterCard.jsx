@@ -14,12 +14,14 @@ function CharacterCard({ pokemonData, setSelectedIds = () => {} }) {
   //console.log("rendering");
 
   function handleOnClick() {
-    pokemonDataDispatch({
-      type: "edited_pokemon_data",
-      pokemonId: pokemonData.id,
-      pokemonSelected: true,
-    });
-    setSelectedIds((a) => [...a, pokemonData.id]);
+    if (!pokemonData.selected) {
+      pokemonDataDispatch({
+        type: "edited_pokemon_data",
+        pokemonId: pokemonData.id,
+        pokemonSelected: true,
+      });
+      setSelectedIds((a) => [...a, pokemonData.id]);
+    }
     console.log(name);
   }
 

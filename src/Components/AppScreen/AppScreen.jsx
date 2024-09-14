@@ -7,15 +7,17 @@ export default AppScreen;
 
 function AppScreen() {
   const pokemonData = usePokemonData();
-  const [selectedIds, setSelectedIds] = useState([1]);
+  const [selectedIds, setSelectedIds] = useState([]);
   function getVisiblePokemon() {
     const pokemons = [];
-    //const selectedIdsCopy = [...selectedIds];
-    //const unSelectedIds = pokemonData.map((pokemon) => {
-    //  if (!(pokemon.id in selectedIds)) {
-    //    return pokemon.id;
-    //  }
-    //});
+    const selectedIdsCopy = [...selectedIds];
+    const unSelectedIds = pokemonData
+      .filter((pokemon) => {
+        if (!selectedIds.includes(pokemon.id)) {
+          return true;
+        }
+      })
+      .map((pokemon) => pokemon.id);
     //const maxPokemon = 9;
     //const maxSelectedPokemon = selectedIds.length < 3 ? selectedIds.length : 3;
     //for (let index = 0; index < maxPokemon; index++) {
@@ -28,8 +30,10 @@ function AppScreen() {
     //    unSelectedIds.splice(0, 1);
     //  }
     //}
-    //console.log("unSelectedIds");
-    //console.log(unSelectedIds);
+    console.log("selectedIds");
+    console.log(selectedIdsCopy);
+    console.log("unSelectedIds");
+    console.log(unSelectedIds);
 
     let testindex = 0;
     //for (let index = 0; index < 9; index++) {
@@ -41,10 +45,22 @@ function AppScreen() {
     //}
     while (pokemons.length < 9) {
       //console.log(!selectedIds.includes(pokemonData[testindex].id));
-      if (!selectedIds.includes(pokemonData[testindex].id)) {
-        pokemons.push(pokemonData[testindex]);
+      //if (!selectedIds.includes(pokemonData[testindex].id)) {
+      //  pokemons.push(pokemonData[testindex]);
+      //}
+      //testindex++;
+
+      if (
+        selectedIds.length === pokemonData.length ||
+        (pokemons.length < 3 && selectedIdsCopy.length > 0)
+      ) {
+        const randomIndex = Math.floor(Math.random() * selectedIdsCopy.length);
+        pokemons.push(pokemonData[selectedIdsCopy[randomIndex] - 1]);
+        selectedIdsCopy.splice(randomIndex, 1);
+      } else {
+        pokemons.push(pokemonData[unSelectedIds[testindex] - 1]);
+        testindex++;
       }
-      testindex++;
       //}
     }
     return pokemons;
@@ -56,6 +72,7 @@ function AppScreen() {
 
   console.log("visiblePokemon");
   console.log(visiblePokemon);
+  console.log(pokemonData);
   //console.log("rendering");
 
   return (
