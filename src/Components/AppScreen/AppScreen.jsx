@@ -14,6 +14,8 @@ function AppScreen() {
 
   const [screenState, setScreenState] = useState("preloading");
   const [score, setScore] = useState(0);
+  const visiblePokemon = getVisiblePokemon();
+  const longerScreenWidth = window.innerWidth >= window.innerHeight;
 
   useEffect(() => {
     let ignore = false;
@@ -22,7 +24,7 @@ function AppScreen() {
         setScreenState("loaded");
         console.log("set screen state to loaded");
       }
-    }, 1000);
+    }, 3000);
     return () => {
       ignore = true;
     };
@@ -39,7 +41,6 @@ function AppScreen() {
       })
       .map((pokemon) => pokemon.id);
 
-    let unselectedIndex = 0;
     const maxPokemon = 9;
     const maxSelectedPokemon = 3;
     while (pokemons.length < maxPokemon) {
@@ -71,8 +72,6 @@ function AppScreen() {
     return pokemons;
   }
 
-  const visiblePokemon = getVisiblePokemon();
-
   console.log();
   console.log("visiblePokemon");
   console.log(visiblePokemon);
@@ -93,7 +92,7 @@ function AppScreen() {
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr 1fr",
-          gap: "1vw",
+          gap: longerScreenWidth ? "1vh" : "1vw",
         }}
       >
         {screenState === "preloading"

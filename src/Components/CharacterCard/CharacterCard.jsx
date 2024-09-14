@@ -11,6 +11,8 @@ function CharacterCard({ pokemonData, style = {}, setScore = () => {} }) {
   const imgUrl = pokemonData.spriteUrl;
   const pokemonDataDispatch = usePokemonDataDispatch();
 
+  const longerScreenWidth = window.innerWidth >= window.innerHeight;
+
   function handleOnClick() {
     if (!pokemonData.selected) {
       pokemonDataDispatch({
@@ -33,16 +35,24 @@ function CharacterCard({ pokemonData, style = {}, setScore = () => {} }) {
     <div
       className={styles.CharacterCardContainer}
       onClick={handleOnClick}
-      style={style}
+      style={{ ...style, padding: longerScreenWidth ? "1vh" : "1vw" }}
     >
-      <div className={styles.CharacterCardImage}>
+      <div
+        className={styles.CharacterCardImage}
+        style={{ width: longerScreenWidth ? "18vh" : "27vw" }}
+      >
         <img
           src={imgUrl}
           alt={name + ".png"}
           style={{ width: "100%", height: "100%" }}
         />
       </div>
-      <div className={styles.CharacterCardName}>{capitalize(name)}</div>
+      <div
+        className={styles.CharacterCardName}
+        style={{ fontSize: longerScreenWidth ? "2vh" : "3vw" }}
+      >
+        {capitalize(name)}
+      </div>
     </div>
   );
 }
