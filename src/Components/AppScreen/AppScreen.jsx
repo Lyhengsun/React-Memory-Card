@@ -2,12 +2,14 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { fetchPokemonByGeneration } from "../../api/api";
 import { PokemonDataProvider } from "../../Contexts/PokemonDataContext";
 import PlayScreen from "../PlayScreen/PlayScreen";
+import MenuScreen from "../MenuScreen/MenuScreen";
 
 export default AppScreen;
 
 function AppScreen() {
   const [data, setData] = useState(null);
-  const [state, setState] = useState("playscreen");
+  const [state, setState] = useState("menuscreen");
+  // state = ["playscreen", "menuscreen"]
   const ignoreFetch = useRef(false);
 
   useEffect(() => {
@@ -22,17 +24,23 @@ function AppScreen() {
 
   const screen = useMemo(() => {
     switch (state) {
+      case "menuscreen":
+        return <MenuScreen setAppState={setState} />;
       case "playscreen":
-        return (
-          <PokemonDataProvider initialData={data}>
-            <PlayScreen />
-          </PokemonDataProvider>
-        );
+        return <PlayScreen setAppState={setState} />;
 
       default:
-        break;
+        return <div>Error</div>;
     }
-  }, [state, data]);
+  }, [state]);
 
-  return <>{data ? screen : <div>Loading...</div>}</>;
+  return (
+    <>
+      {data ? (
+        <PokemonDataProvider initialData={data}>{screen}</PokemonDataProvider>
+      ) : (
+        <div>Loading...</div>
+      )}
+    </>
+  );
 }

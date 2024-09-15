@@ -4,10 +4,11 @@ import {
   usePokemonSelectIds,
 } from "../../Contexts/ContextHook";
 import CharacterCard from "../CharacterCard/CharacterCard";
+import PropTypes from "prop-types";
 
 export default PlayScreen;
 
-function PlayScreen() {
+function PlayScreen({ setAppState = () => {} }) {
   const pokemonData = usePokemonData();
   const selectedIds = usePokemonSelectIds();
 
@@ -114,4 +115,6 @@ function PlayScreen() {
     </div>
   );
 }
-
+PlayScreen.propTypes = {
+  setAppState: PropTypes.func,
+};
