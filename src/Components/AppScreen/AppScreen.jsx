@@ -6,9 +6,11 @@ import MenuScreen from "../MenuScreen/MenuScreen";
 
 export default AppScreen;
 
+let ignoreSetData = [false];
 function AppScreen() {
   const [data, setData] = useState(null);
   const [state, setState] = useState("menuscreen");
+  const [includedGen, setIncludedGen] = [1];
   // state = ["playscreen", "menuscreen"]
   const ignoreFetch = useRef(false);
 
@@ -20,12 +22,15 @@ function AppScreen() {
       ignoreFetch.current = true;
     };
   }, []);
+
   //console.log(data);
 
   const screen = useMemo(() => {
     switch (state) {
       case "menuscreen":
-        return <MenuScreen setAppState={setState} />;
+        return (
+          <MenuScreen setAppState={setState} ignoreFetch={ignoreSetData} />
+        );
       case "playscreen":
         return <PlayScreen setAppState={setState} />;
 
@@ -33,6 +38,12 @@ function AppScreen() {
         return <div>Error</div>;
     }
   }, [state]);
+
+  console.log(ignoreSetData);
+  if (!ignoreSetData[0]) {
+    console.log("rendering");
+    ignoreSetData[0] = true;
+  }
 
   return (
     <>

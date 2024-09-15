@@ -72,10 +72,10 @@ function PlayScreen({ setAppState = () => {} }) {
     return pokemons;
   }
 
-  console.log();
-  console.log("visiblePokemon");
-  console.log(visiblePokemon);
-  console.log("rendering");
+  //console.log();
+  //console.log("visiblePokemon");
+  //console.log(visiblePokemon);
+  //console.log("rendering");
 
   return (
     <div>
