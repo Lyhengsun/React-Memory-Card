@@ -49,13 +49,19 @@ function PlayScreen({ setAppState = () => {} }) {
         (pokemons.length < maxSelectedPokemon && selectedIdsCopy.length > 0)
       ) {
         const randomIndex = Math.floor(Math.random() * selectedIdsCopy.length);
-        pokemons.push(pokemonData[selectedIdsCopy[randomIndex] - 1]);
+        const pokemon = pokemonData.filter(
+          (p) => p.id === selectedIdsCopy[randomIndex],
+        )[0];
+        pokemons.push(pokemon);
         selectedIdsCopy.splice(randomIndex, 1);
       } else {
         const randomUnselectedIndex = Math.floor(
           Math.random() * unSelectedIds.length,
         );
-        pokemons.push(pokemonData[unSelectedIds[randomUnselectedIndex] - 1]);
+        const pokemon = pokemonData.filter(
+          (p) => p.id === unSelectedIds[randomUnselectedIndex],
+        )[0];
+        pokemons.push(pokemon);
         unSelectedIds.splice(randomUnselectedIndex, 1);
       }
     }
@@ -73,8 +79,8 @@ function PlayScreen({ setAppState = () => {} }) {
   }
 
   //console.log();
-  //console.log("visiblePokemon");
-  //console.log(visiblePokemon);
+  console.log("visiblePokemon");
+  console.log(visiblePokemon);
   //console.log("rendering");
 
   return (

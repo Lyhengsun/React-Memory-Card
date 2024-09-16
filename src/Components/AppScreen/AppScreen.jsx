@@ -8,22 +8,27 @@ export default AppScreen;
 
 let ignoreSetData = [false];
 function AppScreen() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [state, setState] = useState("menuscreen");
-  const [includedGen, setIncludedGen] = [1];
+  const [includedGen, setIncludedGen] = useState([7, 3]);
   // state = ["playscreen", "menuscreen"]
   const ignoreFetch = useRef(false);
 
   useEffect(() => {
     if (!ignoreFetch.current) {
-      fetchPokemonByGeneration(setData, { logging: true });
+      includedGen.forEach((genId) => {
+        fetchPokemonByGeneration((data) => setData((d) => [...d, ...data]), {
+          logging: true,
+          generationId: genId,
+        });
+      });
     }
     return () => {
       ignoreFetch.current = true;
     };
-  }, []);
+  }, [includedGen]);
 
-  //console.log(data);
+  console.log(data);
 
   const screen = useMemo(() => {
     switch (state) {
@@ -47,7 +52,7 @@ function AppScreen() {
 
   return (
     <>
-      {data ? (
+      {data.length ? (
         <PokemonDataProvider initialData={data}>{screen}</PokemonDataProvider>
       ) : (
         <div>Loading...</div>
