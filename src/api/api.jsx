@@ -72,7 +72,7 @@ export const fetchPokemonByGeneration = (
     .then((response) => response.json())
     .then((data) => {
       if (logging) {
-        console.log("fetching pokemon data by generation");
+        console.log(`fetching pokemon data in generation ${generationId}`);
         console.log("url: " + url);
       }
       let dataProgress = 0;

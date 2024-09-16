@@ -6,35 +6,46 @@ import MenuScreen from "../MenuScreen/MenuScreen";
 
 export default AppScreen;
 
-let ignoreSetData = [false];
 function AppScreen() {
   const [data, setData] = useState([]);
   const [state, setState] = useState("menuscreen");
-  const [includedGen, setIncludedGen] = useState([7, 3]);
+  const [includedGen, setIncludedGen] = useState([1]);
   // state = ["playscreen", "menuscreen"]
   const ignoreFetch = useRef(false);
 
   useEffect(() => {
+    console.log("ignoreFetch.current = " + ignoreFetch.current);
     if (!ignoreFetch.current) {
-      includedGen.forEach((genId) => {
-        fetchPokemonByGeneration((data) => setData((d) => [...d, ...data]), {
-          logging: true,
-          generationId: genId,
-        });
-      });
-    }
-    return () => {
+      console.log("try to fetchPokemonByGeneration");
+      setData([]);
       ignoreFetch.current = true;
-    };
+      if (includedGen.length > 0) {
+        includedGen.forEach((genId) => {
+          fetchPokemonByGeneration(
+            (data) => {
+              setData((d) => [...d, ...data]);
+            },
+            {
+              logging: true,
+              generationId: genId,
+            },
+          );
+        });
+      }
+    }
+    return () => {};
   }, [includedGen]);
-
-  console.log(data);
 
   const screen = useMemo(() => {
     switch (state) {
       case "menuscreen":
         return (
-          <MenuScreen setAppState={setState} ignoreFetch={ignoreSetData} />
+          <MenuScreen
+            setAppState={setState}
+            includedGen={includedGen}
+            setIncludedGen={setIncludedGen}
+            ignoreFetch={ignoreFetch}
+          />
         );
       case "playscreen":
         return <PlayScreen setAppState={setState} />;
@@ -42,17 +53,13 @@ function AppScreen() {
       default:
         return <div>Error</div>;
     }
-  }, [state]);
+  }, [state, includedGen]);
 
-  console.log(ignoreSetData);
-  if (!ignoreSetData[0]) {
-    console.log("rendering");
-    ignoreSetData[0] = true;
-  }
+  console.log(data);
 
   return (
     <>
-      {data.length ? (
+      {data.length > 0 ? (
         <PokemonDataProvider initialData={data}>{screen}</PokemonDataProvider>
       ) : (
         <div>Loading...</div>

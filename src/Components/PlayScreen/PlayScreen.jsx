@@ -22,7 +22,7 @@ function PlayScreen({ setAppState = () => {} }) {
     setTimeout(() => {
       if (!ignore) {
         setScreenState("loaded");
-        console.log("set screen state to loaded");
+        //console.log("set screen state to loaded");
       }
     }, 3000);
     return () => {
@@ -79,8 +79,8 @@ function PlayScreen({ setAppState = () => {} }) {
   }
 
   //console.log();
-  console.log("visiblePokemon");
-  console.log(visiblePokemon);
+  //console.log("visiblePokemon");
+  //console.log(visiblePokemon);
   //console.log("rendering");
 
   return (
