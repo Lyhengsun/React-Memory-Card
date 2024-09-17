@@ -1,3 +1,4 @@
+import { pokemonAmountByGeneration } from "../data/pokemonAmountByGeneration";
 import CharacterModel from "../Models/CharacterModel";
 
 const fetchData = (
@@ -28,20 +29,6 @@ const fetchData = (
     });
 };
 
-const generationPokemonAmount = {
-  1: 151,
-  2: 100,
-  3: 135,
-  4: 107,
-  5: 156,
-  6: 72,
-  7: 88,
-  8: 96,
-  9: 120,
-};
-
-//export const fetchPokemonById = (setData, url)
-
 export const fetchPokemonByGeneration = (
   setData,
   {
@@ -54,12 +41,12 @@ export const fetchPokemonByGeneration = (
   let offset = 0;
   let limit = 151;
   if (generationId > 1) {
-    Object.keys(generationPokemonAmount).forEach(function (key) {
+    Object.keys(pokemonAmountByGeneration).forEach(function (key) {
       if (key < generationId) {
-        offset = offset + generationPokemonAmount[key];
+        offset = offset + pokemonAmountByGeneration[key];
       }
     });
-    limit = generationPokemonAmount[generationId];
+    limit = pokemonAmountByGeneration[generationId];
   }
 
   const url = new URL(`https://pokeapi.co/api/v2/pokemon/`);
