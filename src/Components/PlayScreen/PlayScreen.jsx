@@ -30,6 +30,10 @@ function PlayScreen({ setAppState = () => {} }) {
     };
   }, []);
 
+  function handleOnLose() {
+    setAppState("retryscreen");
+  }
+
   function getVisiblePokemon() {
     const pokemons = [];
     const selectedIdsCopy = [...selectedIds];
@@ -115,6 +119,7 @@ function PlayScreen({ setAppState = () => {} }) {
                 key={pokemon.id}
                 pokemonData={pokemon}
                 setScore={setScore}
+                onLose={handleOnLose}
               />
             ))}
       </div>

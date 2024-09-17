@@ -6,7 +6,12 @@ import PropTypes from "prop-types";
 import CharacterModel from "../../Models/CharacterModel";
 import { usePokemonDataDispatch } from "../../Contexts/ContextHook";
 
-function CharacterCard({ pokemonData, style = {}, setScore = () => {} }) {
+function CharacterCard({
+  pokemonData,
+  style = {},
+  setScore = () => {},
+  onLose = () => {},
+}) {
   const name = pokemonData.name;
   const imgUrl = pokemonData.spriteUrl;
   const pokemonDataDispatch = usePokemonDataDispatch();
@@ -26,6 +31,7 @@ function CharacterCard({ pokemonData, style = {}, setScore = () => {} }) {
       pokemonDataDispatch({
         type: "reseted_pokemon_data_selection",
       });
+      onLose();
       setScore(0);
     }
     //console.log(name);
@@ -60,4 +66,5 @@ CharacterCard.propTypes = {
   pokemonData: PropTypes.instanceOf(CharacterModel).isRequired,
   style: PropTypes.object,
   setScore: PropTypes.func,
+  onLose: PropTypes.func,
 };
