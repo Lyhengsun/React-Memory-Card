@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import {
   usePokemonData,
   usePokemonSelectIds,
 } from "../../Contexts/ContextHook";
 import CharacterCard from "../CharacterCard/CharacterCard";
 import PropTypes from "prop-types";
+import { useOnLoadImages } from "../../CustomHooks/useOnLoadImages";
 
 export default PlayScreen;
 
@@ -12,23 +13,13 @@ function PlayScreen({ setAppState = () => {} }) {
   const pokemonData = usePokemonData();
   const selectedIds = usePokemonSelectIds();
 
-  const [screenState, setScreenState] = useState("preloading");
   const [score, setScore] = useState(0);
+
+  const wrapperRef = useRef(null);
+  const imagesLoaded = useOnLoadImages(wrapperRef);
+
   const visiblePokemon = getVisiblePokemon();
   const longerScreenWidth = window.innerWidth >= window.innerHeight;
-
-  useEffect(() => {
-    let ignore = false;
-    setTimeout(() => {
-      if (!ignore) {
-        setScreenState("loaded");
-        //console.log("set screen state to loaded");
-      }
-    }, 3000);
-    return () => {
-      ignore = true;
-    };
-  }, []);
 
   function handleOnLose() {
     setAppState("retryscreen");
@@ -89,7 +80,7 @@ function PlayScreen({ setAppState = () => {} }) {
 
   return (
     <div>
-      {screenState === "preloading" ? (
+      {!imagesLoaded ? (
         <div>Preloading Pokemons...</div>
       ) : (
         <div
@@ -99,13 +90,14 @@ function PlayScreen({ setAppState = () => {} }) {
         </div>
       )}
       <div
+        ref={wrapperRef}
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr 1fr",
           gap: longerScreenWidth ? "1vh" : "1vw",
         }}
       >
-        {screenState === "preloading"
+        {!imagesLoaded
           ? pokemonData.map((pokemon) => (
               <CharacterCard
                 key={pokemon.id}

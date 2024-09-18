@@ -65,12 +65,14 @@ function MenuScreen({
           />
         );
       })}
-      <GenerationDropDown
-        genOptions={availableGeneration.filter(
-          (genId) => !includedGen.includes(genId),
-        )}
-        onSave={handleOnChangeGenDropDownSave}
-      />
+      {includedGen.length < 9 && (
+        <GenerationDropDown
+          genOptions={availableGeneration.filter(
+            (genId) => !includedGen.includes(genId),
+          )}
+          onSave={handleOnChangeGenDropDownSave}
+        />
+      )}
       <button onClick={handleOnPlayClick} disabled={!(includedGen.length > 0)}>
         Play
       </button>
