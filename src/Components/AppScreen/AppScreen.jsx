@@ -10,32 +10,38 @@ export default AppScreen;
 function AppScreen() {
   const [data, setData] = useState([]);
   const [state, setState] = useState("menuscreen");
-  const [includedGen, setIncludedGen] = useState([1]);
   // state = ["playscreen", "menuscreen", "retryscreen"]
+  const [includedGen, setIncludedGen] = useState([1]);
+  const [dataLoaded, setDataLoaded] = useState([]);
   const ignoreFetch = useRef(false);
 
   useEffect(() => {
-    console.log("ignoreFetch.current = " + ignoreFetch.current);
     if (!ignoreFetch.current) {
-      console.log("try to fetchPokemonByGeneration");
+      setDataLoaded(Array(includedGen.length).fill(false));
+      //console.log("try to fetchPokemonByGeneration");
       setData([]);
       ignoreFetch.current = true;
       if (includedGen.length > 0) {
-        includedGen.forEach((genId) => {
+        includedGen.forEach((genId, genIndex) => {
           fetchPokemonByGeneration(
             (data) => {
               setData((d) => [...d, ...data]);
             },
             {
-              logging: true,
+              logging: false,
               generationId: genId,
+              setLoaded: () => {
+                setDataLoaded((d) =>
+                  d.map((v, index) => (index === genIndex ? true : v)),
+                );
+              },
             },
           );
         });
       }
     }
     return () => {};
-  }, [includedGen]);
+  }, [includedGen, dataLoaded]);
 
   const screen = useMemo(() => {
     switch (state) {
@@ -59,11 +65,15 @@ function AppScreen() {
     }
   }, [state, includedGen]);
 
-  console.log(data);
+  //console.log([].every((v) => v !== undefined));
+
+  //console.log(data);
+
+  console.log(dataLoaded);
 
   return (
     <>
-      {data.length > 0 ? (
+      {dataLoaded.length > 0 && dataLoaded.every((v) => v) ? (
         <PokemonDataProvider initialData={data}>{screen}</PokemonDataProvider>
       ) : (
         <div>Loading...</div>

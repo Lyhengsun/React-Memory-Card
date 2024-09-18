@@ -35,6 +35,7 @@ export const fetchPokemonByGeneration = (
     signal = null,
     logging = false,
     generationId = 1,
+    setLoaded = () => {},
     setError = () => {},
   } = {},
 ) => {
@@ -79,6 +80,8 @@ export const fetchPokemonByGeneration = (
             dataProgress++;
             if (dataProgress >= limit) {
               setData(finalData.sort((a, b) => a.id - b.id));
+              console.log("finished loading");
+              setLoaded(true);
             }
           });
       });
