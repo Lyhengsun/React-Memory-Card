@@ -4,33 +4,25 @@ import styles from "./CharacterCard.module.css";
 import { capitalize } from "../../Utils";
 import PropTypes from "prop-types";
 import CharacterModel from "../../Models/CharacterModel";
-import { usePokemonDataDispatch } from "../../Contexts/ContextHook";
 
 function CharacterCard({
   pokemonData,
   style = {},
   setScore = () => {},
+  onSafeClick = () => {},
   onLose = () => {},
 }) {
   const name = pokemonData.name;
   const imgUrl = pokemonData.spriteUrl;
-  const pokemonDataDispatch = usePokemonDataDispatch();
 
   const longerScreenWidth = window.innerWidth >= window.innerHeight;
 
   function handleOnClick() {
     if (!pokemonData.selected) {
-      pokemonDataDispatch({
-        type: "edited_pokemon_data",
-        pokemonId: pokemonData.id,
-        pokemonSelected: true,
-      });
+      onSafeClick(pokemonData.id);
       setScore((n) => n + 1);
     } else {
       console.log("Wrong!");
-      pokemonDataDispatch({
-        type: "reseted_pokemon_data_selection",
-      });
       onLose();
       setScore(0);
     }
@@ -66,5 +58,6 @@ CharacterCard.propTypes = {
   pokemonData: PropTypes.instanceOf(CharacterModel).isRequired,
   style: PropTypes.object,
   setScore: PropTypes.func,
+  onSafeClick: PropTypes.func,
   onLose: PropTypes.func,
 };

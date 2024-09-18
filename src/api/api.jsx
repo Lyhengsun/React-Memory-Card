@@ -93,8 +93,4 @@ export const fetchPokemonByGeneration = (
     });
 };
 
-export function convertToCharacterModel(jsonData) {
-  return new CharacterModel();
-}
-
 export { fetchData };

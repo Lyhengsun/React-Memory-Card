@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { availableGeneration } from "../../data/availableGeneration";
 
 export default MenuScreen;
 
@@ -6,10 +7,7 @@ function MenuScreen({
   setAppState = () => {},
   includedGen,
   setIncludedGen = () => {},
-  ignoreFetch = {},
 }) {
-  const availableGeneration = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
   function handleOnPlayClick() {
     setAppState("playscreen");
   }
@@ -26,7 +24,6 @@ function MenuScreen({
     } else {
       setIncludedGen((g) => [...g, newId]);
     }
-    ignoreFetch.current = false;
   }
 
   function handleOnChangeGenDropDownDelete(genId = null) {
@@ -34,9 +31,7 @@ function MenuScreen({
       console.log(
         "includedGenId.indexOf(genId) = " + includedGen.indexOf(genId),
       );
-      //setIncludedGen(includedGen.splice(includedGen.indexOf(genId), 1));
       setIncludedGen(includedGen.filter((gId) => gId !== genId));
-      ignoreFetch.current = false;
     }
   }
 
@@ -83,7 +78,6 @@ MenuScreen.propTypes = {
   setAppState: PropTypes.func,
   includedGen: PropTypes.array.isRequired,
   setIncludedGen: PropTypes.func,
-  ignoreFetch: PropTypes.object,
 };
 
 function GenerationDropDown({
