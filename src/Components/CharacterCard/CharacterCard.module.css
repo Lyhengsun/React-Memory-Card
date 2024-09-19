@@ -1,6 +1,6 @@
 .CharacterCardContainer {
   display: flex;
-  background-color: green;
+  background-color: darkslategray;
   border-radius: 15px;
   flex-direction: column;
   align-items: center;

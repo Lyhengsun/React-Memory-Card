@@ -41,9 +41,12 @@ function MenuScreen({
   return (
     <div>
       <div
-        style={{ fontWeight: "bold", fontSize: "2em", marginBottom: "10px" }}
+        style={{ fontWeight: "bold", fontSize: "3em", marginBottom: "10px" }}
       >
         Pokemon Memory Game
+      </div>
+      <div style={{ fontWeight: "bold", fontSize: "1.5em" }}>
+        Choose The Included Generation
       </div>
       {includedGen.map((genId, index) => {
         const options = availableGeneration.filter(
@@ -68,9 +71,23 @@ function MenuScreen({
           onSave={handleOnChangeGenDropDownSave}
         />
       )}
-      <button onClick={handleOnPlayClick} disabled={!(includedGen.length > 0)}>
-        Play
-      </button>
+      <div style={{ marginTop: "50px" }}>
+        <button
+          onClick={handleOnPlayClick}
+          style={{
+            border: "none",
+            padding: "12px 24px",
+            borderRadius: "15px",
+            backgroundColor: "lime",
+            color: "white",
+            fontWeight: "bold",
+            fontSize: "2.5em",
+          }}
+          disabled={!(includedGen.length > 0)}
+        >
+          Play
+        </button>
+      </div>
     </div>
   );
 }
