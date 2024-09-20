@@ -56,13 +56,13 @@ function getVisiblePokemon(pokemonData, selectedIds) {
   }
 
   //shuffle the visible pokemon array
-  //const maxVisiblePokemon = 9;
-  //for (let index = 0; index < maxVisiblePokemon; index++) {
-  //  const randomShuffledIndex = Math.floor(Math.random() * maxVisiblePokemon);
-  //  const pokemon1 = pokemons[randomShuffledIndex];
-  //  pokemons[randomShuffledIndex] = pokemons[index];
-  //  pokemons[index] = pokemon1;
-  //}
+  const maxVisiblePokemon = 9;
+  for (let index = 0; index < maxVisiblePokemon; index++) {
+    const randomShuffledIndex = Math.floor(Math.random() * maxVisiblePokemon);
+    const pokemon1 = pokemons[randomShuffledIndex];
+    pokemons[randomShuffledIndex] = pokemons[index];
+    pokemons[index] = pokemon1;
+  }
 
   return pokemons;
 }
