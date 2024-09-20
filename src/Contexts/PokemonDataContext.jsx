@@ -1,7 +1,5 @@
-import { createContext } from "react";
 import PropTypes from "prop-types";
-
-export const PokemonDataContext = createContext(null);
+import { PokemonDataContext } from "./ContextHook";
 
 export function PokemonDataProvider({ children, initialData = [] }) {
   return (

@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { availableGeneration } from "../../data/availableGeneration";
+import { useHighScoreState } from "../../Contexts/ContextHook";
 
 export default MenuScreen;
 
@@ -8,6 +9,8 @@ function MenuScreen({
   includedGen,
   setIncludedGen = () => {},
 }) {
+  const [highScore, _] = useHighScoreState();
+
   function handleOnPlayClick() {
     setAppState("playscreen");
   }
@@ -44,6 +47,11 @@ function MenuScreen({
         style={{ fontWeight: "bold", fontSize: "3em", marginBottom: "10px" }}
       >
         Pokemon Memory Game
+      </div>
+      <div
+        style={{ fontWeight: "bold", fontSize: "1.5em", marginBottom: "10px" }}
+      >
+        Highscore: {highScore}
       </div>
       <div style={{ fontWeight: "bold", fontSize: "1.5em" }}>
         Choose The Included Generation

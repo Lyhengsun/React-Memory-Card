@@ -5,6 +5,7 @@ import PlayScreen from "../PlayScreen/PlayScreen";
 import MenuScreen from "../MenuScreen/MenuScreen";
 import RetryScreen from "../RetryScreen/RetryScreen";
 import { availableGeneration } from "../../data/availableGeneration";
+import { HighScoreStateProvider } from "../../Contexts/HighScoreStateContext";
 
 export default AppScreen;
 
@@ -74,7 +75,9 @@ function AppScreen() {
   return (
     <>
       {dataLoaded.length > 0 && dataLoaded.every((v) => v === true) ? (
-        <PokemonDataProvider initialData={data}>{screen}</PokemonDataProvider>
+        <HighScoreStateProvider>
+          <PokemonDataProvider initialData={data}>{screen}</PokemonDataProvider>
+        </HighScoreStateProvider>
       ) : (
         <div>
           Fetching 9 generations of Pokemon Data{" "}

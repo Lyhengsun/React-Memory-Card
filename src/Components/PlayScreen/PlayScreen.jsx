@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { usePokemonData } from "../../Contexts/ContextHook";
+import { useHighScoreState, usePokemonData } from "../../Contexts/ContextHook";
 import CharacterCard from "../CharacterCard/CharacterCard";
 import PropTypes from "prop-types";
 import { useOnLoadImages } from "../../CustomHooks/useOnLoadImages";
@@ -34,7 +34,7 @@ function getVisiblePokemon(pokemonData, selectedIds) {
   const maxSelectedPokemon = 3;
   while (pokemons.length < maxPokemon) {
     if (
-      selectedIds.length >= pokemonData.length - 6 ||
+      unSelectedIds.length <= 0 ||
       (pokemons.length < maxSelectedPokemon && selectedIdsCopy.length > 0)
     ) {
       const randomIndex = Math.floor(Math.random() * selectedIdsCopy.length);
@@ -56,13 +56,13 @@ function getVisiblePokemon(pokemonData, selectedIds) {
   }
 
   //shuffle the visible pokemon array
-  const maxVisiblePokemon = 9;
-  for (let index = 0; index < maxVisiblePokemon; index++) {
-    const randomShuffledIndex = Math.floor(Math.random() * maxVisiblePokemon);
-    const pokemon1 = pokemons[randomShuffledIndex];
-    pokemons[randomShuffledIndex] = pokemons[index];
-    pokemons[index] = pokemon1;
-  }
+  //const maxVisiblePokemon = 9;
+  //for (let index = 0; index < maxVisiblePokemon; index++) {
+  //  const randomShuffledIndex = Math.floor(Math.random() * maxVisiblePokemon);
+  //  const pokemon1 = pokemons[randomShuffledIndex];
+  //  pokemons[randomShuffledIndex] = pokemons[index];
+  //  pokemons[index] = pokemon1;
+  //}
 
   return pokemons;
 }
@@ -73,6 +73,8 @@ function PlayScreen({ setAppState = () => {}, includedGen = [] }) {
     getPokemonData(data, includedGen),
   );
   const [score, setScore] = useState(0);
+
+  const [highScore, setHighScore] = useHighScoreState();
 
   const selectedIds = pokemonData
     .filter((pokemon) => pokemon.selected)
@@ -96,14 +98,15 @@ function PlayScreen({ setAppState = () => {}, includedGen = [] }) {
   }
 
   function handleOnLose() {
+    setHighScore(score);
     setAppState("retryscreen");
   }
 
-  console.log(pokemonData);
+  //console.log(pokemonData);
 
   //console.log();
-  //console.log("visiblePokemon");
-  //console.log(visiblePokemon);
+  console.log("visiblePokemon");
+  console.log(visiblePokemon);
   //console.log("rendering");
 
   return (
@@ -112,9 +115,23 @@ function PlayScreen({ setAppState = () => {}, includedGen = [] }) {
         <div>Preloading Pokemons...</div>
       ) : (
         <div
-          style={{ marginBottom: "10px", fontSize: "24px", fontWeight: "bold" }}
+          style={{
+            marginBottom: "10px",
+            fontSize: "24px",
+            fontWeight: "bold",
+            width: "100vw",
+            position: "absolute",
+            top: "0",
+            left: "0",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
         >
-          Score: {score}
+          <div style={{ marginLeft: "10px" }}>
+            Max Score: {pokemonData.length}
+          </div>
+          <div>Score: {score}</div>
+          <div style={{ marginRight: "10px" }}>Highscore: {highScore}</div>
         </div>
       )}
       <div
