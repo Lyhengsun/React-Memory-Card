@@ -79,7 +79,10 @@ function MenuScreen({
           onSave={handleOnChangeGenDropDownSave}
         />
       )}
-      <div style={{ marginTop: "50px" }}>
+      <div style={{ marginTop: "50px", fontWeight: "bold" }}>
+        Rule: Try not to click on the same pokemon
+      </div>
+      <div style={{ marginTop: "10px" }}>
         <button
           onClick={handleOnPlayClick}
           style={{

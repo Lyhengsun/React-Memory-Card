@@ -22,7 +22,7 @@ function CharacterCard({
       onSafeClick(pokemonData.id);
       setScore((n) => n + 1);
     } else {
-      console.log("Wrong!");
+      //console.log("Wrong!");
       onLose();
       setScore(0);
     }

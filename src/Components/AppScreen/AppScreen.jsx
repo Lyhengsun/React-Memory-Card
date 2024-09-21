@@ -22,7 +22,7 @@ function AppScreen() {
 
   useEffect(() => {
     if (!ignoreFetch.current) {
-      console.log("try to fetchPokemonByGeneration");
+      //console.log("try to fetchPokemonByGeneration");
       setDataLoaded([]);
       const newDataLoaded = Array(availableGeneration.length).fill(false);
       setData([]);

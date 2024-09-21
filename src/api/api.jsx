@@ -80,7 +80,7 @@ export const fetchPokemonByGeneration = (
             dataProgress++;
             if (dataProgress >= limit) {
               setData(finalData.sort((a, b) => a.id - b.id));
-              console.log("finished loading");
+              //console.log("finished loading");
               setLoaded(true);
             }
           });

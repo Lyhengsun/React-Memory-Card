@@ -105,8 +105,8 @@ function PlayScreen({ setAppState = () => {}, includedGen = [] }) {
   //console.log(pokemonData);
 
   //console.log();
-  console.log("visiblePokemon");
-  console.log(visiblePokemon);
+  //console.log("visiblePokemon");
+  //console.log(visiblePokemon);
   //console.log("rendering");
 
   return (
