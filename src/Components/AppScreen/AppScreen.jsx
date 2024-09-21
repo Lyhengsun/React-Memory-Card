@@ -80,8 +80,8 @@ function AppScreen() {
         </HighScoreStateProvider>
       ) : (
         <div>
-          Fetching 9 generations of Pokemon Data{" "}
-          {loadingPercentage ? Math.round(loadingPercentage) : 0}%
+          <div>Fetching 9 generations of Pokemon Data</div>
+          <div>{loadingPercentage ? Math.round(loadingPercentage) : 0}%</div>
         </div>
       )}
     </>

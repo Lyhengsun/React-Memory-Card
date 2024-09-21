@@ -24,7 +24,7 @@ And for this project, I decided to use the [Pokemon API](https://pokeapi.co/) fo
 
 Clone the project
 ```
-git clone 
+git clone https://github.com/Lyhengsun/React-Memory-Card.git
 cd React-Memory-Card
 ```
 
@@ -62,3 +62,7 @@ There are 3 screens in this website.
 <div align="center">
     <img title="The Retry Screen" alt="The Retry Screen" src="./readme_files/retryscreen.png" width=45%>
 </div>
+
+## On Netlify
+
+This project has been deployed on [Netlify](https://hengmemorygame.netlify.app/).
