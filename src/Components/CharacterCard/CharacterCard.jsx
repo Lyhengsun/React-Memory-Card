@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import CharacterModel from "../../Models/CharacterModel";
 import Tilt from "react-parallax-tilt";
 import CardBackImg from "../../assets/card-back.png";
+import { useEffect, useState } from "react";
 
 function CharacterCard({
   pokemonData,
@@ -14,8 +15,14 @@ function CharacterCard({
   onSafeClick = () => {},
   onLose = () => {},
 }) {
+  const [interactable, setInteractable] = useState(false);
   const name = pokemonData.name;
   const imgUrl = pokemonData.spriteUrl;
+  const ANIMATION_TIME = 850;
+
+  useEffect(() => {
+    setTimeout(() => setInteractable(true), ANIMATION_TIME);
+  }, []);
 
   const longerScreenWidth = window.innerWidth >= window.innerHeight;
 
@@ -45,21 +52,22 @@ function CharacterCard({
           ...style,
           aspectRatio: "2.5/3.5",
           width: longerScreenWidth ? "18vh" : "24vw",
+          pointerEvents: interactable ? "auto" : "none",
         }}
       >
         <div
           className={styles.CharacterCardFront}
           style={{
-            padding: longerScreenWidth ? "1vh" : "1vw",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <div className={styles.CharacterCardImage}>
-            <img
-              src={imgUrl}
-              alt={name + ".png"}
-              style={{ width: "100%", height: "100%" }}
-              draggable={false}
-            />
+          <div
+            className={styles.CharacterCardImage}
+            style={{ marginTop: longerScreenWidth ? "1vh" : "1vw" }}
+          >
+            <img src={imgUrl} alt={name + ".png"} draggable={false} />
           </div>
           <div
             className={styles.CharacterCardName}
