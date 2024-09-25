@@ -4,6 +4,9 @@ import styles from "./CharacterCard.module.css";
 import { capitalize } from "../../Utils";
 import PropTypes from "prop-types";
 import CharacterModel from "../../Models/CharacterModel";
+import Tilt from "react-parallax-tilt";
+import CardBackImg from "../../assets/card-back.png";
+import { useEffect, useState } from "react";
 
 function CharacterCard({
   pokemonData,
@@ -12,8 +15,14 @@ function CharacterCard({
   onSafeClick = () => {},
   onLose = () => {},
 }) {
+  const [interactable, setInteractable] = useState(false);
   const name = pokemonData.name;
   const imgUrl = pokemonData.spriteUrl;
+  const ANIMATION_TIME = 850;
+
+  useEffect(() => {
+    setTimeout(() => setInteractable(true), ANIMATION_TIME);
+  }, []);
 
   const longerScreenWidth = window.innerWidth >= window.innerHeight;
 
@@ -30,28 +39,48 @@ function CharacterCard({
   }
 
   return (
-    <div
+    <Tilt
+      tiltReverse
+      reset
+      glareEnable={true}
       className={styles.CharacterCardContainer}
-      onClick={handleOnClick}
-      style={{ ...style, padding: longerScreenWidth ? "1vh" : "1vw" }}
     >
       <div
-        className={styles.CharacterCardImage}
-        style={{ width: longerScreenWidth ? "18vh" : "27vw" }}
+        className={styles.CharacterCardInner}
+        onClick={handleOnClick}
+        style={{
+          ...style,
+          aspectRatio: "2.5/3.5",
+          width: longerScreenWidth ? "18vh" : "24vw",
+          pointerEvents: interactable ? "auto" : "none",
+        }}
       >
-        <img
-          src={imgUrl}
-          alt={name + ".png"}
-          style={{ width: "100%", height: "100%" }}
-        />
+        <div
+          className={styles.CharacterCardFront}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div
+            className={styles.CharacterCardImage}
+            style={{ marginTop: longerScreenWidth ? "1vh" : "1vw" }}
+          >
+            <img src={imgUrl} alt={name + ".png"} draggable={false} />
+          </div>
+          <div
+            className={styles.CharacterCardName}
+            style={{ fontSize: longerScreenWidth ? "2vh" : "3vw" }}
+          >
+            <div style={{ textAlign: "center" }}>{capitalize(name)}</div>
+          </div>
+        </div>
+        <div className={styles.CharacterCardBack}>
+          <img src={CardBackImg} style={{ width: "109%" }} alt="" />
+        </div>
       </div>
-      <div
-        className={styles.CharacterCardName}
-        style={{ fontSize: longerScreenWidth ? "2vh" : "3vw" }}
-      >
-        {capitalize(name)}
-      </div>
-    </div>
+    </Tilt>
   );
 }
 CharacterCard.propTypes = {

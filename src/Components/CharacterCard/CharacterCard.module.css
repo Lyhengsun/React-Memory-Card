@@ -4,17 +4,63 @@
   border-radius: 15px;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
+  animation: flip-card 1s;
 }
 
 .CharacterCardImage {
   aspect-ratio: 1;
   background-color: yellowgreen;
   border-radius: 10px;
+  width: 90%;
+}
+.CharacterCardImage img {
+  width: 100%;
+  height: 100%;
+  object-position: center;
 }
 
 .CharacterCardName {
-  max-width: 100%;
+  display: flex;
+  max-width: 95%;
   color: white;
+  height: 29%;
   font-weight: bold;
+  justify-content: center;
+  align-items: center;
+}
+
+.CharacterCardFront,
+.CharacterCardBack {
+  width: 92%;
+  position: absolute;
+  backface-visibility: hidden;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.CharacterCardFront {
+}
+.CharacterCardBack {
+  transform: rotateY(180deg);
+}
+
+.CharacterCardInner {
+  position: relative;
+  position: relative;
   text-align: center;
+  transform-style: preserve-3d;
+  transition: transform 0.85s;
+  animation: flip-card 0.85s;
+}
+
+@keyframes flip-card {
+  from {
+    transform: rotateY(180deg);
+    pointer-events: none;
+  }
+  to {
+    transform: rotateY(0deg);
+  }
 }

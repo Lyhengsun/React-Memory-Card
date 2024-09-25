@@ -4,6 +4,7 @@ import CharacterCard from "../CharacterCard/CharacterCard";
 import PropTypes from "prop-types";
 import { useOnLoadImages } from "../../CustomHooks/useOnLoadImages";
 import CharacterModel from "../../Models/CharacterModel";
+import shortid from "shortid";
 
 export default PlayScreen;
 
@@ -153,7 +154,7 @@ function PlayScreen({ setAppState = () => {}, includedGen = [] }) {
             ))
           : visiblePokemon.map((pokemon) => (
               <CharacterCard
-                key={pokemon.id}
+                key={shortid.generate()}
                 pokemonData={pokemon}
                 setScore={setScore}
                 onSafeClick={handleOnSafeClick}
