@@ -1,0 +1,8 @@
+.ModalContainer {
+  background-color: white;
+  margin: 0 20px;
+  padding: 20px;
+  border-image: url("../../assets/border.png") 42 round;
+  border-width: 21px;
+  border-style: solid;
+}

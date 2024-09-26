@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { availableGeneration } from "../../data/availableGeneration";
 import { useHighScoreState } from "../../Contexts/ContextHook";
 import styles from "./MenuScreen.module.css";
+import Modal from "../Modal/Modal";
 
 export default MenuScreen;
 
@@ -43,17 +44,19 @@ function MenuScreen({
   //console.log(includedGen);
 
   return (
-    <div>
-      <div
-        style={{
-          fontFamily: "Press-Start-2P",
-          fontWeight: "bold",
-          fontSize: "3em",
-          marginBottom: "10px",
-        }}
-      >
-        Pokemon Memory Game
-      </div>
+    <div className={styles.MenuScreenContainer}>
+      <Modal style={{ marginBottom: "50px" }}>
+        <div
+          style={{
+            fontFamily: "Press-Start-2P",
+            fontWeight: "bold",
+            fontSize: "3em",
+            color: "black",
+          }}
+        >
+          Pokemon Memory Game
+        </div>
+      </Modal>
       <div
         style={{
           fontWeight: "bold",
