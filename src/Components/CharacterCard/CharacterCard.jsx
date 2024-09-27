@@ -18,7 +18,7 @@ function CharacterCard({
   const [interactable, setInteractable] = useState(false);
   const name = pokemonData.name;
   const imgUrl = pokemonData.spriteUrl;
-  const ANIMATION_TIME = 850;
+  const ANIMATION_TIME = 1000;
 
   useEffect(() => {
     setTimeout(() => setInteractable(true), ANIMATION_TIME);
@@ -51,7 +51,7 @@ function CharacterCard({
         style={{
           ...style,
           aspectRatio: "2.5/3.5",
-          width: longerScreenWidth ? "18vh" : "24vw",
+          width: longerScreenWidth ? "20vh" : "22vw",
           pointerEvents: interactable ? "auto" : "none",
         }}
       >
@@ -71,13 +71,13 @@ function CharacterCard({
           </div>
           <div
             className={styles.CharacterCardName}
-            style={{ fontSize: longerScreenWidth ? "2vh" : "3vw" }}
+            style={{ fontSize: longerScreenWidth ? "1.5vh" : "2vw" }}
           >
             <div style={{ textAlign: "center" }}>{capitalize(name)}</div>
           </div>
         </div>
         <div className={styles.CharacterCardBack}>
-          <img src={CardBackImg} style={{ width: "109%" }} alt="" />
+          <img src={CardBackImg} style={{ width: "100%" }} alt="" />
         </div>
       </div>
     </Tilt>
