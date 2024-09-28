@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import styles from "./RetryScreen.module.css";
 
 export default RetryScreen;
 
@@ -13,41 +14,11 @@ function RetryScreen({ setAppState = () => {} }) {
 
   return (
     <div>
-      <div
-        style={{ fontWeight: "bold", fontSize: "3em", marginBottom: "10px" }}
-      >
-        You Fail!
+      <div className={styles.Header}>You Fail!</div>
+      <div className={styles.RetryMenu}>
+        <button onClick={handleOnClickRetryBtn}>Retry</button> <br />
+        <button onClick={handleOnClickMenuBtn}>Back to menu</button>
       </div>
-      <button
-        onClick={handleOnClickRetryBtn}
-        style={{
-          border: "none",
-          padding: "12px 24px",
-          borderRadius: "15px",
-          backgroundColor: "lime",
-          color: "white",
-          fontWeight: "bold",
-          fontSize: "1.5em",
-          marginBottom: "20px",
-        }}
-      >
-        Retry
-      </button>{" "}
-      <br />
-      <button
-        onClick={handleOnClickMenuBtn}
-        style={{
-          border: "none",
-          padding: "12px 24px",
-          borderRadius: "15px",
-          backgroundColor: "lime",
-          color: "white",
-          fontWeight: "bold",
-          fontSize: "1.5em",
-        }}
-      >
-        Back to menu
-      </button>
     </div>
   );
 }
