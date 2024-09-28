@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import { availableGeneration } from "../../data/availableGeneration";
 import { useHighScoreState } from "../../Contexts/ContextHook";
+import styles from "./MenuScreen.module.css";
+import Modal from "../Modal/Modal";
 
 export default MenuScreen;
 
@@ -42,63 +44,70 @@ function MenuScreen({
   //console.log(includedGen);
 
   return (
-    <div>
-      <div
-        style={{ fontWeight: "bold", fontSize: "3em", marginBottom: "10px" }}
-      >
-        Pokemon Memory Game
-      </div>
-      <div
-        style={{ fontWeight: "bold", fontSize: "1.5em", marginBottom: "10px" }}
-      >
-        Highscore: {highScore}
-      </div>
-      <div style={{ fontWeight: "bold", fontSize: "1.5em" }}>
-        Choose The Included Generation
-      </div>
-      {includedGen.map((genId, index) => {
-        const options = availableGeneration.filter(
-          (genId) => !includedGen.includes(genId),
-        );
-        return (
-          <GenerationDropDown
-            key={genId}
-            selectedGen={genId}
-            genOptions={[genId, ...options]}
-            showChoose={index !== 0}
-            onSave={(e) => handleOnChangeGenDropDownSave(e, genId)}
-            onDelete={() => handleOnChangeGenDropDownDelete(genId)}
-          />
-        );
-      })}
-      {includedGen.length < 9 && (
-        <GenerationDropDown
-          genOptions={availableGeneration.filter(
-            (genId) => !includedGen.includes(genId),
-          )}
-          onSave={handleOnChangeGenDropDownSave}
-        />
-      )}
-      <div style={{ marginTop: "50px", fontWeight: "bold" }}>
-        Rule: Try not to click on the same pokemon
-      </div>
-      <div style={{ marginTop: "10px" }}>
-        <button
-          onClick={handleOnPlayClick}
+    <div className={styles.MenuScreenContainer}>
+      <Modal style={{ marginBottom: "50px" }}>
+        <div
           style={{
-            border: "none",
-            padding: "12px 24px",
-            borderRadius: "15px",
-            backgroundColor: "lime",
-            color: "white",
+            fontFamily: "Press-Start-2P",
             fontWeight: "bold",
-            fontSize: "2.5em",
+            fontSize: "3em",
+            color: "black",
           }}
-          disabled={!(includedGen.length > 0)}
         >
-          Play
-        </button>
-      </div>
+          Pokemon Memory Game
+        </div>
+      </Modal>
+      <Modal style={{ backgroundColor: "hsla(0, 0%, 100%, 0.8)" }}>
+        <div className={styles.Menu}>
+          <div
+            style={{
+              fontWeight: "bold",
+              fontSize: "1.5em",
+              marginBottom: "10px",
+            }}
+          >
+            Highscore: {highScore}
+          </div>
+          <div style={{ fontSize: "1.2em" }}>
+            Choose The Included Generation
+          </div>
+          {includedGen.map((genId, index) => {
+            const options = availableGeneration.filter(
+              (genId) => !includedGen.includes(genId),
+            );
+            return (
+              <GenerationDropDown
+                key={genId}
+                selectedGen={genId}
+                genOptions={[genId, ...options]}
+                showChoose={index !== 0}
+                onSave={(e) => handleOnChangeGenDropDownSave(e, genId)}
+                onDelete={() => handleOnChangeGenDropDownDelete(genId)}
+              />
+            );
+          })}
+          {includedGen.length < 9 && (
+            <GenerationDropDown
+              genOptions={availableGeneration.filter(
+                (genId) => !includedGen.includes(genId),
+              )}
+              onSave={handleOnChangeGenDropDownSave}
+            />
+          )}
+          <div style={{ marginTop: "50px", fontWeight: "bold" }}>
+            Rule: Try not to click on the same pokemon
+          </div>
+          <div style={{ marginTop: "10px" }}>
+            <button
+              className={styles.PlayButton}
+              onClick={handleOnPlayClick}
+              disabled={!(includedGen.length > 0)}
+            >
+              Play
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }
@@ -129,6 +138,7 @@ function GenerationDropDown({
       <select
         name=""
         id=""
+        className={styles.GenerationDropdown}
         defaultValue={defaultValue}
         onChange={handleOnChange}
       >

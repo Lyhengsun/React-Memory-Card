@@ -28,6 +28,7 @@
   font-weight: bold;
   justify-content: center;
   align-items: center;
+  font-family: Press-Start-2P;
 }
 
 .CharacterCardFront,
@@ -51,8 +52,8 @@
   position: relative;
   text-align: center;
   transform-style: preserve-3d;
-  transition: transform 0.85s;
-  animation: flip-card 0.85s;
+  transition: transform 1s;
+  animation: flip-card 1s;
 }
 
 @keyframes flip-card {

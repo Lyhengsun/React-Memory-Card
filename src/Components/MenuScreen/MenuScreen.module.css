@@ -1,0 +1,29 @@
+.MenuScreenContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.PlayButton {
+  border: none;
+  padding: 12px 24px;
+  border-radius: 15px;
+  background-color: lime;
+  color: white;
+  font-weight: bold;
+  font-size: 2em;
+  font-family: Press-Start-2P;
+}
+
+.GenerationDropdown {
+  background-color: darkslategrey;
+  color: white;
+  border: none;
+  font-family: Press-Start-2P;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.Menu {
+  color: black;
+}

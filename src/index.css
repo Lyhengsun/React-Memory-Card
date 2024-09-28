@@ -1,3 +1,13 @@
+@font-face {
+  font-family: Pokemon;
+  src: url("./assets/Pokemon-GB.ttf");
+}
+
+@font-face {
+  font-family: "Press-Start-2P";
+  src: url("./assets/PressStart2P-Regular.ttf");
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -20,7 +30,12 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-color: green;
+  font-family: Pokemon;
+  background-image: url("./assets/background.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 @media (prefers-color-scheme: light) {

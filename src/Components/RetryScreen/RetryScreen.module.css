@@ -1,0 +1,16 @@
+.Header {
+  font-family: Press-Start-2P;
+  font-size: 3em;
+  margin-bottom: 10px;
+}
+
+.RetryMenu > button {
+  font-family: Pokemon;
+  border: none;
+  padding: 14px 24px 8px;
+  border-radius: 15px;
+  background-color: lime;
+  color: white;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
