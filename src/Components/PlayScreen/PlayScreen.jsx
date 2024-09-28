@@ -83,7 +83,7 @@ function PlayScreen({ setAppState = () => {}, includedGen = [] }) {
       return p.id;
     });
   const visiblePokemon = getVisiblePokemon(pokemonData, selectedIds);
-  const longerScreenWidth = window.innerWidth >= window.innerHeight;
+  const longerScreenWidth = window.innerWidth > window.innerHeight;
 
   const wrapperRef = useRef(null);
   const imagesLoaded = useOnLoadImages(wrapperRef);
@@ -118,21 +118,26 @@ function PlayScreen({ setAppState = () => {}, includedGen = [] }) {
         <div
           style={{
             marginBottom: "10px",
-            fontSize: "24px",
+            fontSize: longerScreenWidth ? "1.6vw" : "3vw",
             fontWeight: "bold",
             width: "100vw",
             position: "absolute",
             top: "0",
             left: "0",
-            display: "flex",
-            justifyContent: "space-between",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
           }}
         >
-          <div style={{ marginLeft: "10px" }}>
-            Max Score: {pokemonData.length}
+          <div>
+            Max: {!longerScreenWidth && <br />} {pokemonData.length}
           </div>
-          <div>Score: {score}</div>
-          <div style={{ marginRight: "10px" }}>Highscore: {highScore}</div>
+          <div>
+            Score: {!longerScreenWidth && <br />}
+            {score}
+          </div>
+          <div>
+            Highscore: {!longerScreenWidth && <br />} {highScore}
+          </div>
         </div>
       )}
       <div
