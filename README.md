@@ -20,6 +20,16 @@ The guidelines were mentioned as below:
 
 And for this project, I decided to use the [Pokemon API](https://pokeapi.co/) for the game images.
 
+## Technologies used
+
+- [React + Vite](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md)
+- [PokeAPI](https://pokeapi.co/)
+- [React Parallax Tilt](https://github.com/mkosir/react-parallax-tilt) \(used for card tilt effect\) 
+
+## Live Preview
+
+This project has been deployed on [Netlify](https://hengmemorygame.netlify.app/)
+
 ## How to run this project on your own computer
 
 Clone the project
@@ -45,7 +55,7 @@ cd dist
 live-server ./
 ```
 
-## GUI
+## GUI \(Pictures Out of Date\)
 There are 3 screens in this website.
 
 ### Menu Screen
@@ -58,11 +68,8 @@ There are 3 screens in this website.
     <img title="The Play Screen" alt="The Play Screen" src="./readme_files/playscreen.png" width=45%>
 </div>
 
-## Retry Screen
+### Retry Screen
 <div align="center">
     <img title="The Retry Screen" alt="The Retry Screen" src="./readme_files/retryscreen.png" width=45%>
 </div>
 
-## On Netlify
-
-This project has been deployed on [Netlify](https://hengmemorygame.netlify.app/).
