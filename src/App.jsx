@@ -8,7 +8,20 @@ function App() {
     document.title = "PokeMemory Game";
   }, []);
 
-  return <AppScreen />;
+  return (
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        overflow: "hidden",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <AppScreen />
+    </div>
+  );
 }
 
 export default App;
