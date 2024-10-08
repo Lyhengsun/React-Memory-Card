@@ -45,7 +45,7 @@ function MenuScreen({
 
   return (
     <div className={styles.MenuScreenContainer}>
-      <Modal style={{ marginBottom: "50px" }}>
+      <Modal style={{ marginBottom: "50px", marginTop: "20px" }}>
         <div
           style={{
             fontFamily: "Press-Start-2P",
