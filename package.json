@@ -12,7 +12,7 @@
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-parallax-tilt": "^1.7.242",
+    "react-parallax-tilt": "^1.7.254",
     "shortid": "^2.2.16"
   },
   "devDependencies": {
